@@ -1,0 +1,115 @@
+# Save this as .github/workflows/keeper.yml in your repo.
+name: Nomad Poet keeper
+
+on:
+  # Every 2 hours. The contract's heartbeat is a MINIMUM (10,800 blocks / ~6h),
+  # not a schedule - being early is a no-op, being late costs nothing. So GitHub's
+  # unreliable cron is fine here. Polling more often than needed is free because
+  # canMigrate() is an eth_call, not a transaction.
+  schedule:
+    - cron: '0 */2 * * *'
+  # Lets you trigger it by hand from the Actions tab.
+  workflow_dispatch:
+
+permissions:
+  contents: write   # needed to commit each new verse to POEMS.md
+
+concurrency:
+  group: poet-keeper
+  cancel-in-progress: false   # never let two migrations race
+
+jobs:
+  migrate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: foundry-rs/foundry-toolchain@v1
+        with:
+          version: stable
+
+      - name: Migrate the poet if its heartbeat has elapsed
+        env:
+          KEEPER_KEY: ${{ secrets.KEEPER_KEY }}
+          RPC: https://mainnet.base.org
+          REGISTRY: '0x62dfaFd357bc82532D24dff6AaaD6e8314a9ea10'
+        run: |
+          set -euo pipefail
+
+          if [ -z "${KEEPER_KEY:-}" ]; then
+            echo "::error::KEEPER_KEY secret is not set"
+            exit 1
+          fi
+
+          clean() { tr -d '[:space:]' | tr -d '"'; }
+
+          cur=$(cast call "$REGISTRY" "currentPoet()(address)" --rpc-url "$RPC" | clean)
+          echo "current poet : $cur"
+
+          gen=$(cast call "$cur" "generation()(uint256)" --rpc-url "$RPC" | clean)
+          bal=$(cast balance "$cur" --rpc-url "$RPC" --ether | clean)
+          echo "generation   : $gen"
+          echo "treasury     : $bal ETH"
+
+          ready=$(cast call "$cur" "canMigrate()(bool)" --rpc-url "$RPC" | clean)
+          echo "canMigrate   : $ready"
+
+          if [ "$ready" != "true" ]; then
+            echo "Heartbeat has not elapsed, or the treasury is empty. Nothing to do."
+            # An empty treasury is not an error - the poet is paused, waiting for a
+            # donation to the registry. It resumes on its own once fed.
+            exit 0
+          fi
+
+          # Gas: keeper must be able to pay. Each call costs ~0.000002 ETH and earns
+          # the 0.00001 ETH migration fee, so this wallet should grow, not shrink.
+          keeper=$(cast wallet address --private-key "$KEEPER_KEY" | clean)
+          kbal=$(cast balance "$keeper" --rpc-url "$RPC" | clean)
+          echo "keeper       : $keeper"
+          echo "keeper wei   : $kbal"
+          if [ "$kbal" -lt 100000000000000 ]; then
+            echo "::warning::keeper balance under 0.0001 ETH - top it up soon"
+          fi
+
+          # --gas-limit is mandatory. eth_estimateGas under-shoots migrate() because
+          # it does a CREATE2 then nested calls, and EIP-150's 63/64 rule means each
+          # frame needs more gas than it burns. Without this the tx reverts.
+          cast send "$cur" "migrate()" \
+            --rpc-url "$RPC" \
+            --private-key "$KEEPER_KEY" \
+            --gas-limit 500000
+
+          new=$(cast call "$REGISTRY" "currentPoet()(address)" --rpc-url "$RPC" | clean)
+          if [ "$new" = "$cur" ]; then
+            echo "::error::transaction sent but the registry still points at $cur"
+            exit 1
+          fi
+
+          ngen=$(cast call "$new" "generation()(uint256)" --rpc-url "$RPC" | clean)
+          nbal=$(cast balance "$new" --rpc-url "$RPC" --ether | clean)
+          verse=$(cast call "$new" "haiku()(string)" --rpc-url "$RPC" | tr -d '"')
+
+          echo "::notice::generation $ngen - $verse"
+
+          {
+            printf '\n## generation %s\n\n' "$ngen"
+            printf '> %s\n\n' "$verse"
+            printf -- '- soul: `%s`\n' "$new"
+            printf -- '- treasury: %s ETH\n' "$nbal"
+            printf -- '- %s\n' "$(date -u '+%Y-%m-%d %H:%M UTC')"
+          } >> POEMS.md
+
+      - name: Commit the new verse
+        run: |
+          set -euo pipefail
+          if git diff --quiet -- POEMS.md 2>/dev/null && [ -z "$(git status --porcelain POEMS.md)" ]; then
+            echo "No new verse this run."
+            exit 0
+          fi
+          git config user.name  "the nomad poet"
+          git config user.email "actions@users.noreply.github.com"
+          git add POEMS.md
+          git commit -m "the poet moved"
+          git push
+          # This commit doubles as repository activity, which is what keeps GitHub
+          # from auto-disabling the scheduled workflow after 60 days of inactivity.
