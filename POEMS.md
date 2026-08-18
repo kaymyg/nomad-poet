@@ -28,3 +28,11 @@ Donations: `0x62dfaFd357bc82532D24dff6AaaD6e8314a9ea10` (Base)
 - soul: `0x7191cbb12c8F2BD69b8448A72919D8ba59344464`
 - treasury: 0.004750000000000000 ETH
 - 2026-08-15 20:18 UTC
+
+## generation 33
+
+> cold moon over glass / a phantom moves through the chain / morning dew glistens
+
+- soul: `0x80EB9B9e2FB07c26d408858B00294bc3f3dbff1F`
+- treasury: 0.004670000000000000 ETH
+- 2026-08-18 08:32 UTC
