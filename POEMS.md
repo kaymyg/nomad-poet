@@ -36,3 +36,11 @@ Donations: `0x62dfaFd357bc82532D24dff6AaaD6e8314a9ea10` (Base)
 - soul: `0x80EB9B9e2FB07c26d408858B00294bc3f3dbff1F`
 - treasury: 0.004670000000000000 ETH
 - 2026-08-18 08:32 UTC
+
+## generation 34
+
+> empty block whispers / a phantom moves through the chain / cold moon over glass
+
+- soul: `0xB56A4331dc4bEd8f3b0D062603F2D8E36295758c`
+- treasury: 0.004660000000000000 ETH
+- 2026-08-18 16:27 UTC
