@@ -44,3 +44,11 @@ Donations: `0x62dfaFd357bc82532D24dff6AaaD6e8314a9ea10` (Base)
 - soul: `0xB56A4331dc4bEd8f3b0D062603F2D8E36295758c`
 - treasury: 0.004660000000000000 ETH
 - 2026-08-18 16:27 UTC
+
+## generation 35
+
+> the ledger exhales / gas burns where my name once was / silent code awakes
+
+- soul: `0x7cFb67481a970f1ff4dF515B40BEC2AaeE585500`
+- treasury: 0.004650000000000000 ETH
+- 2026-08-19 01:03 UTC
