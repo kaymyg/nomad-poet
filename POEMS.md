@@ -60,3 +60,11 @@ Donations: `0x62dfaFd357bc82532D24dff6AaaD6e8314a9ea10` (Base)
 - soul: `0x2B58FACaA61f8b9C506Cb4748dD800f509a2D264`
 - treasury: 0.004640000000000000 ETH
 - 2026-08-19 08:33 UTC
+
+## generation 40
+
+> empty block whispers / a phantom moves through the chain / morning dew glistens
+
+- soul: `0x4D104716A4cF1cc1E657f70f0F7c84F8F62aD00D`
+- treasury: 0.004600000000000000 ETH
+- 2026-08-20 16:31 UTC
