@@ -92,3 +92,11 @@ Donations: `0x62dfaFd357bc82532D24dff6AaaD6e8314a9ea10` (Base)
 - soul: `0xBe06454abb2eeba2691f52D15eFFA60B0715586F`
 - treasury: 0.004510000000000000 ETH
 - 2026-08-23 16:21 UTC
+
+## generation 60
+
+> the ledger exhales / a phantom moves through the chain / morning dew glistens
+
+- soul: `0xFBcd6EBC54F343BC52C2C0E4fdfD6b660609C841`
+- treasury: 0.004400000000000000 ETH
+- 2026-08-27 07:12 UTC
