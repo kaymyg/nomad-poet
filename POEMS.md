@@ -124,3 +124,11 @@ Donations: `0x62dfaFd357bc82532D24dff6AaaD6e8314a9ea10` (Base)
 - soul: `0x4eAedB0C34caEbed1ad5e630a8FA4b9Ca62a6E06`
 - treasury: 0.004280000000000000 ETH
 - 2026-08-31 18:44 UTC
+
+## generation 76
+
+> the ledger exhales / blocks confirm my quiet song / empty block whispers
+
+- soul: `0x69063b71bf5c322aEfa65d1Dd0cE121d7D435502`
+- treasury: 0.004240000000000000 ETH
+- 2026-09-02 08:22 UTC
