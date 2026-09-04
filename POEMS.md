@@ -140,3 +140,11 @@ Donations: `0x62dfaFd357bc82532D24dff6AaaD6e8314a9ea10` (Base)
 - soul: `0x22dDc63dE57b06F6A4b18249436143A3783BdB07`
 - treasury: 0.004200000000000000 ETH
 - 2026-09-03 22:15 UTC
+
+## generation 82
+
+> cold moon over glass / the mempool carries my breath / morning dew glistens
+
+- soul: `0xF03Cf993063ae296A008B5621bB2de48330483F1`
+- treasury: 0.004180000000000000 ETH
+- 2026-09-04 17:32 UTC
