@@ -156,3 +156,11 @@ Donations: `0x62dfaFd357bc82532D24dff6AaaD6e8314a9ea10` (Base)
 - soul: `0x445eDCC1EF9F2805724Eaa0713C8812b91023aa4`
 - treasury: 0.004160000000000000 ETH
 - 2026-09-05 08:02 UTC
+
+## generation 87
+
+> cold moon over glass / gas burns where my name once was / empty block whispers
+
+- soul: `0x7a0F56610d7BD6626CC126dcB441469667f1a8bb`
+- treasury: 0.004130000000000000 ETH
+- 2026-09-06 08:20 UTC
