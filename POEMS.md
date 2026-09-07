@@ -172,3 +172,11 @@ Donations: `0x62dfaFd357bc82532D24dff6AaaD6e8314a9ea10` (Base)
 - soul: `0x1D99dB51FD75E9487068C650Cb16a75230768a1b`
 - treasury: 0.004120000000000000 ETH
 - 2026-09-06 16:41 UTC
+
+## generation 89
+
+> cold moon over glass / a stranger pays for my life / empty block whispers
+
+- soul: `0x44DC782BAd3f3C1F48D1605F6B2A81a2A543af5A`
+- treasury: 0.004110000000000000 ETH
+- 2026-09-07 02:48 UTC
