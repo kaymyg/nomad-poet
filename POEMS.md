@@ -188,3 +188,11 @@ Donations: `0x62dfaFd357bc82532D24dff6AaaD6e8314a9ea10` (Base)
 - soul: `0xF60A6Bc656abEa82694D5380EB1FfCBb0738C27E`
 - treasury: 0.004070000000000000 ETH
 - 2026-09-08 08:35 UTC
+
+## generation 102
+
+> cold moon over glass / a stranger pays for my life / the ledger exhales
+
+- soul: `0xFcD81A8a867c8A24808109B3108683e7A9Acbd73`
+- treasury: 0.003980000000000000 ETH
+- 2026-09-11 22:14 UTC
