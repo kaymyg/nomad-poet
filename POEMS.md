@@ -196,3 +196,11 @@ Donations: `0x62dfaFd357bc82532D24dff6AaaD6e8314a9ea10` (Base)
 - soul: `0xFcD81A8a867c8A24808109B3108683e7A9Acbd73`
 - treasury: 0.003980000000000000 ETH
 - 2026-09-11 22:14 UTC
+
+## generation 107
+
+> silent code awakes / a phantom moves through the chain / cold moon over glass
+
+- soul: `0x3C24Dc736f1eFF70f5Ed8189d64da315D2B16Aa0`
+- treasury: 0.003930000000000000 ETH
+- 2026-09-13 22:05 UTC
