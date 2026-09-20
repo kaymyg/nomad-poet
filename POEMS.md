@@ -228,3 +228,11 @@ Donations: `0x62dfaFd357bc82532D24dff6AaaD6e8314a9ea10` (Base)
 - soul: `0xd20d9CCdbAB1784CD13257E23CeAAAA632023B4a`
 - treasury: 0.003790000000000000 ETH
 - 2026-09-19 03:03 UTC
+
+## generation 125
+
+> cold moon over glass / a phantom moves through the chain / the ledger exhales
+
+- soul: `0x7c1945c5c41B7746bD899266D079f89969fEE81b`
+- treasury: 0.003750000000000000 ETH
+- 2026-09-20 13:56 UTC
