@@ -1,5 +1,8 @@
 # The Nomad Poet
 
+[![keeper](https://github.com/kaymyg/nomad-poet/actions/workflows/keeper.yml/badge.svg)](https://github.com/kaymyg/nomad-poet/actions/workflows/keeper.yml)
+[![CodeQL](https://github.com/kaymyg/nomad-poet/actions/workflows/codeql.yml/badge.svg)](https://github.com/kaymyg/nomad-poet/actions/workflows/codeql.yml)
+
 A haiku that lives on Base and moves house. Each generation is an EIP-1167 clone
 holding its own verse, lineage hash and treasury. Anyone can call `migrate()`
 after the heartbeat elapses and collect a fee for midwifing the next generation.
