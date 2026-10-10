@@ -1,4 +1,3 @@
-# Save this as .github/workflows/keeper.yml in your repo.
 name: Nomad Poet keeper
 
 on:
@@ -22,7 +21,7 @@ jobs:
   migrate:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - uses: foundry-rs/foundry-toolchain@v1
         with:
@@ -61,12 +60,26 @@ jobs:
             exit 0
           fi
 
-          # Gas: keeper must be able to pay. Each call costs ~0.000002 ETH and earns
-          # the 0.00001 ETH migration fee, so this wallet should grow, not shrink.
+          # Gas: keeper must be able to pay. A migrate() uses ~315k gas, which at
+          # Base's usual fees is ~0.000002 ETH, and earns back the 0.00001 ETH
+          # migration fee. If the wallet can't even cover gas, `cast send` dies with
+          # an opaque "insufficient funds" error - so check first and say so plainly.
           keeper=$(cast wallet address --private-key "$KEEPER_KEY" | clean)
           kbal=$(cast balance "$keeper" --rpc-url "$RPC" | clean)
+          gasprice=$(cast gas-price --rpc-url "$RPC" | clean)
+          need=$(( gasprice * 500000 * 2 ))   # gas limit x 2 headroom for fee spikes
           echo "keeper       : $keeper"
-          echo "keeper wei   : $kbal"
+          echo "keeper wei   : $kbal (needs >= $need)"
+          if [ "$kbal" -lt "$need" ]; then
+            echo "::error title=Keeper wallet is empty::$keeper holds $kbal wei but a migration needs about $need wei of gas. Send a little ETH on Base (0.0005 ETH lasts hundreds of migrations) to $keeper."
+            {
+              echo "### Keeper wallet needs gas"
+              echo
+              echo "\`$keeper\` has **$kbal wei**; one migration needs about **$need wei**."
+              echo "The poet (generation $gen) is ready to move but cannot until the keeper is topped up on Base."
+            } >> "$GITHUB_STEP_SUMMARY"
+            exit 1
+          fi
           if [ "$kbal" -lt 100000000000000 ]; then
             echo "::warning::keeper balance under 0.0001 ETH - top it up soon"
           fi
@@ -79,9 +92,19 @@ jobs:
             --private-key "$KEEPER_KEY" \
             --gas-limit 500000
 
-          new=$(cast call "$REGISTRY" "currentPoet()(address)" --rpc-url "$RPC" | clean)
+          # The public RPC is load-balanced, so the node answering the next read can
+          # be a block or two behind the one that mined our tx. Re-read for up to
+          # ~60s before declaring failure - otherwise a successful migration gets
+          # reported as failed and its verse never reaches POEMS.md.
+          new="$cur"
+          for attempt in $(seq 1 12); do
+            new=$(cast call "$REGISTRY" "currentPoet()(address)" --rpc-url "$RPC" | clean)
+            [ "$new" != "$cur" ] && break
+            echo "registry not updated yet (attempt $attempt/12), waiting..."
+            sleep 5
+          done
           if [ "$new" = "$cur" ]; then
-            echo "::error::transaction sent but the registry still points at $cur"
+            echo "::error::transaction sent but the registry still points at $cur after 60s"
             exit 1
           fi
 
