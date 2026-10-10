@@ -276,3 +276,19 @@ Donations: `0x62dfaFd357bc82532D24dff6AaaD6e8314a9ea10` (Base)
 - soul: `0x4655a29B880a059977e9B28a528bab06881546BE`
 - treasury: 0.003560000000000000 ETH
 - 2026-09-27 09:48 UTC
+
+## generation 145
+
+> cold moon over glass / the mempool carries my breath / silent code awakes
+
+- soul: `0x624eF8475503aF7BE0084f514f644f3EcC1139f8`
+- 2026-09-27 19:30 UTC
+- backfilled from the on-chain `Born` event (tx `0x47d577efb6f8b19f3967eb10a2505b43798bbccc3a8453327bdc75a9128fa9f3`)
+
+## generation 146
+
+> the ledger exhales / a phantom moves through the chain / morning dew glistens
+
+- soul: `0xA293C10EF6d8b17a77d004732D9f4398D4175d16`
+- 2026-09-28 03:32 UTC
+- backfilled from the on-chain `Born` event (tx `0x5c1b6e5d79ba3a08eecffa59debd1b29c699328026f0109b432b4dc3e838755c`)
