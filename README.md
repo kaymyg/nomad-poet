@@ -100,3 +100,8 @@ deploy-script framework is required.
 Publish the **registry** address for donations, not the genesis soul — the soul
 moves, the registry doesn't. And publish the deployment tx hash as proof of
 origin; the `creator` field alone proves nothing.
+
+## Contributing
+
+Contributions are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md) for how to get set up and run the checks,
+and [SECURITY.md](SECURITY.md) for reporting vulnerabilities privately.
